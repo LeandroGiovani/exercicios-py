@@ -1,6 +1,6 @@
 import time
 
-string = 'OLÁ EU SOU O JAPA'
+string = 'ANIMAÇÃO DE STRING'
 num = 0
 newString = ''
 
