@@ -4,6 +4,12 @@ gastos = [{
         "gasto": "20.00",
     }]
 
+receitas = [{
+        "index": 1,
+        "nome": "Salário",
+        "receita": "2000.00",
+    }]
+
 def init():
     print(f"""
 {"=" * 35}
@@ -103,13 +109,46 @@ def receitaMenu():
     escolha = int(input("Digite o valor correspondente: "))
     match escolha:
         case 1:
-            print("Teste")
+            viewReceitas()
+            receitaMenu()
         case 2:
-            print("Teste")
+            proximoId = len(receitas) + 1
+            nomeR = input("Nome da receita: ")
+            valorR = float(input("Valor da receita: "))
+
+            novo_item = {
+                "index": proximoId,
+                "nome": nomeR,
+                "receita": f"{valorR:.2f}",
+            }
+
+            receitas.append(novo_item)
+            print("\n✅ Receita adicionada!")
+            receitaMenu()
         case 3:
-            print("Teste")
+            viewReceitas()
+
+            idDel = int(input("Id do item que deseja remover: "))
+
+            for r in receitas:
+                receitas.pop(r["index"] == (idDel - 1))
+            
+            print("Receita removida")
+            receitaMenu()
         case 4:
-            print("Teste")
+            viewReceitas()
+
+            idAtt = int(input("Id do item que deseja remover: "))
+            newNome = input("Novo nome da receita: ")
+            newReceita = float(input("Novo valor da receita: "))
+
+            for r in receitas:
+                if r["index"] == idAtt:
+                    r["nome"] = newNome
+                    r["receita"] = f"{newReceita:.2f}"
+
+            print("Atualização feita!")
+            receitaMenu()
         case 5:
             init()
         case _:
@@ -124,6 +163,16 @@ def viewGastos():
 """)
     for g in gastos:
         print(f"{g['index']}. {g['nome']}: {g['gasto']}")
+    print("=" * 35 + "\n")
+
+def viewReceitas():
+    print(f"""
+{"=" * 35}
+{"RECEITAS TABELA":^35}
+{"=" * 35}
+""")
+    for r in receitas:
+        print(f"{r['index']}. {r['nome']}: {r['receita']}")
     print("=" * 35 + "\n")
 
 init()
